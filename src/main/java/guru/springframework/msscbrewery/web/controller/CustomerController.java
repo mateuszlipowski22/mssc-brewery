@@ -2,11 +2,15 @@ package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.services.CustomerService;
 import guru.springframework.msscbrewery.web.model.CustomerDto;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/customer")
@@ -25,7 +29,7 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpHeaders> handlePost(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<HttpHeaders> handlePost(@Valid @RequestBody CustomerDto customerDto){
         CustomerDto savedDto = customerService.saveNewDto(customerDto);
 
         HttpHeaders headers = new HttpHeaders();
@@ -35,7 +39,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<HttpStatus> handleUpdate(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDto customerDto){
+    public ResponseEntity<HttpStatus> handleUpdate(@PathVariable("customerId") UUID customerId, @Valid @RequestBody CustomerDto customerDto){
 
         customerService.updateCustomer(customerId, customerDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,5 +49,13 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBeer(@PathVariable("customerId") UUID customerId){
         customerService.deleteById(customerId);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<List<String>> validationError(ConstraintViolationException e){
+        List<String> errors = new ArrayList<>(e.getConstraintViolations().size());
+        e.getConstraintViolations().forEach(constraintViolation -> errors.add(constraintViolation.getPropertyPath()+" : "+constraintViolation.getMessage()));
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
