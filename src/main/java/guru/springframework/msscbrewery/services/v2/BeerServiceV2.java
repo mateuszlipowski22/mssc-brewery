@@ -8,7 +8,7 @@ public interface BeerServiceV2 {
 
     BeerDtoV2 getBeerById(UUID beerId);
 
-    BeerDtoV2 saveNewDto(BeerDtoV2 beerDto);
+    BeerDtoV2 saveNewBeer(BeerDtoV2 beerDto);
 
     void updateBeer(UUID beerId, BeerDtoV2 beerDto);
 
