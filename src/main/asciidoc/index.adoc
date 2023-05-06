@@ -1,0 +1,53 @@
+ SFG Brewery
+Mateusz Lipowski;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+Sample application demonstrating how to use Spring REST Docs with JUnit 5.
+
+`BeerOrderControllerTest` makes a call to a very simple service and produces three
+documentation snippets.
+
+GET BEER
+
+One showing how to make a request using cURL:
+
+include::../../../target/generated-snippets/v2/beer-get/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::../../../target/generated-snippets/v2/beer-get/http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::../../../target/generated-snippets/v2/beer-get/http-response.adoc[]
+
+Response Body:
+include::../../../target/generated-snippets/v2/beer-get/response-body.adoc[]
+
+Response Fields:
+include::../../../target/generated-snippets/v2/beer-get/response-fields.adoc[]
+
+NEW BEER
+
+One showing how to make a request using cURL:
+
+include::../../../target/generated-snippets/v2/beer-new/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::../../../target/generated-snippets/v2/beer-new/http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::../../../target/generated-snippets/v2/beer-new/http-response.adoc[]
+
+Response Body:
+include::../../../target/generated-snippets/v2/beer-new/response-body.adoc[]
+
+Request Fields
+include::../../../target/generated-snippets/v2/beer-new/request-fields.adoc[]
+
+Response Fields:
+include::../../../target/generated-snippets

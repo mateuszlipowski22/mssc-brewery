@@ -18,14 +18,14 @@ import java.util.UUID;
 
 @Slf4j
 @Validated
-@RequestMapping("/api/v2/beer")
+@RequestMapping("/api/v2/beer/")
 @RestController
 @RequiredArgsConstructor
 public class BeerControllerV2 {
 
     private final BeerServiceV2 beerServiceV2;
 
-    @GetMapping({"/{beerId}"})
+    @GetMapping({"{beerId}"})
     public ResponseEntity<BeerDtoV2> getBeer(@NotNull @PathVariable("beerId") UUID beerId){
         return new ResponseEntity<>(beerServiceV2.getBeerById(beerId), HttpStatus.OK);
     }
@@ -43,14 +43,14 @@ public class BeerControllerV2 {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{beerId}")
+    @PutMapping("{beerId}")
     public ResponseEntity<HttpStatus> handleUpdate(@PathVariable("beerId") UUID beerId,@Valid @RequestBody BeerDtoV2 beerDtoV2){
 
         beerServiceV2.updateBeer(beerId, beerDtoV2);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/{beerId}")
+    @DeleteMapping("{beerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBeer(@PathVariable("beerId") UUID beerId){
         beerServiceV2.deleteById(beerId);
